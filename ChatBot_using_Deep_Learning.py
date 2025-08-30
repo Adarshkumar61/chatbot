@@ -225,6 +225,7 @@ num_classes = len(labels)
 import json
 import random
 import numpy as np
+import pickle
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
@@ -270,4 +271,3 @@ history = model.fit(padded_sequences, np.array(training_labels), epochs = 500)
 
 
 model.save('chat_bot.h5')
-
