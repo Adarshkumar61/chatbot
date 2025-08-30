@@ -275,3 +275,7 @@ model.save('chat_bot.h5')
 with open('tokenizer.pickle', 'wb') as handle:
     pickle.dump(tokenizer, handle, protocol = pickle.HIGHEST_PROTOCOL)
 
+with open('label_encoder.pickle', 'wb') as ecn_file:
+    pickle.dump(lbl_encoder, ecn_file, protocol= pickle.HIGHEST_PROTOCOL)
+
+
