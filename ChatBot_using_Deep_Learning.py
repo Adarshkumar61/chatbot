@@ -271,3 +271,7 @@ history = model.fit(padded_sequences, np.array(training_labels), epochs = 500)
 
 
 model.save('chat_bot.h5')
+
+with open('tokenizer.pickle', 'wb') as handle:
+    pickle.dump(tokenizer, handle, protocol = pickle.HIGHEST_PROTOCOL)
+
