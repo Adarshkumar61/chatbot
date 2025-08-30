@@ -251,4 +251,23 @@ sequences = tokenizer.texts_to_sequences(training_sentences)
 padded_sequences = pad_sequences(sequences, truncating = 'post', max_len = max_len)
 
 model = Sequential()
-model.add(Embedding(num_words, embedding_dim))
+model.add(Embedding(num_words, embedding_dim, input_length = max_len))
+model.add(GlobalAveragePooling1D())
+model.add(Dense(16, activation = 'relu'))
+model.add(Dense(16, activation = 'relu'))
+model.add(Dense(num_classes, activation= 'softmax'))
+
+
+model.compile(
+    optimizer = 'adam',
+    loss = 'sparse_categorical_crossentropy',
+    metrics = ['accuracy'])
+
+model.summary()
+
+history = model.fit(padded_sequences, np.array(training_labels), epochs = 500)
+
+
+
+model.save('chat_bot.h5')
+
