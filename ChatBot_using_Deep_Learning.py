@@ -247,7 +247,7 @@ oov_token = "<OOV>"
 
 tokenizer = Tokenizer(num_words = num_words, oov_token = oov_token)
 tokenizer.fit_on_texts(training_sentences)
-word_index = Tokenizer.word_index
+word_index = tokenizer.word_index
 sequences = tokenizer.texts_to_sequences(training_sentences)
 padded_sequences = pad_sequences(sequences, truncating = 'post', max_len = max_len)
 
@@ -279,3 +279,30 @@ with open('label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(lbl_encoder, ecn_file, protocol= pickle.HIGHEST_PROTOCOL)
 
 
+from tensorflow import keras
+
+def chatbot():
+    model = keras.models.load_model('chat_bot.h5')
+
+    with open('tokenizer.pickle', 'rb') as handle:
+        tokenizer = pickle.load(handle)
+    with open('label_encoder.pickle', 'rb') as enc_file:
+        lbl_encoder = pickle.load(enc_file)
+    
+    max_len = 20
+
+    while True:
+        print('You: ', end = '')
+        inp = input()
+        if inp.lower() == 'quit':
+            break
+
+        result = model.predict(tf.keras.preprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences([inp]), truncating = 'post', max_len = max_len))
+        tag = lbl_encoder.inverse_transform([np.argmax(result)])[0]
+        
+        for i in data['intents']:
+            if i['tag'] == tag:
+                print('ChatBot: ', np.random.choice(i['responses']))
+
+print('Start Talking with the bot( type quit to stop)') 
+chatbot()
