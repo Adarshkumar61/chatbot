@@ -219,7 +219,7 @@ for intent in data['intents']:
     if intent['tag'] not in labels:
         labels.appned(intent['tag'])
 
-num_classes = len(labels)
+num_classes = len(labels)  # tells how many unique classes we have
 
 
 import json
