@@ -235,7 +235,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 
 lbl_encoder = LabelEncoder()
-lbl_encoder.fit(training_labels) 
+lbl_encoder.fit(training_labels)
 training_labels = lbl_encoder.transform(training_labels) # #converting the text labels into numbers
 
 
@@ -245,7 +245,7 @@ max_len = 20 # max length of each sentence
 embedding_dim = 16 # how many dimensions we want to represent each word
 oov_token = "<OOV>" # fill the words which are not in the vocab
 
-tokenizer = Tokenizer(num_words = num_words, oov_token = oov_token) 
+tokenizer = Tokenizer(num_words = num_words, oov_token = oov_token)
 tokenizer.fit_on_texts(training_sentences) # fit the tokenizer on our text
 word_index = tokenizer.word_index 
 sequences = tokenizer.texts_to_sequences(training_sentences)
