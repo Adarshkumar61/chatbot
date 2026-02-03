@@ -31,7 +31,7 @@ data = {'intents': [
     },
       {"tag": "help",
     "patterns": ["Could you help me?", "give me a hand please", "Can you help?", "What can you do for me?", "I need a support", "I need a help", "support me please"],
-    "responses": ["Tell me how can assist you", "Tell me your problem to assist you", "Yes Sure, How can I support you"]
+    "responses": ["Tell me how I can assist you", "Tell me your problem to assist you", "Yes Sure, How can I support you"]
     },
     {"tag": "createaccount",
     "patterns": ["I need to create a new account", "how to open a new account", "I want to create an account", "can you create an account for me", "how to open a new account"],
@@ -212,12 +212,12 @@ responses = []
 
 for intent in data['intents']:
     for pattern in intent['patterns']:
-        training_sentences.apppend(pattern)
+        training_sentences.append(pattern)
         training_labels.append(intent['tag'])
     responses.append(intent['responses'])
 
     if intent['tag'] not in labels:
-        labels.appned(intent['tag'])
+        labels.append(intent['tag'])
 
 num_classes = len(labels)  # tells how many unique classes we have
 
@@ -249,7 +249,7 @@ tokenizer = Tokenizer(num_words = num_words, oov_token = oov_token)
 tokenizer.fit_on_texts(training_sentences) # fit the tokenizer on our text
 word_index = tokenizer.word_index 
 sequences = tokenizer.texts_to_sequences(training_sentences)
-padded_sequences = pad_sequences(sequences, truncating = 'post', max_len = max_len)
+padded_sequences = pad_sequences(sequences, truncating = 'post', maxlen = max_len)
 
 model = Sequential()
 model.add(Embedding(num_words, embedding_dim, input_length = max_len)) # input_length is the length of each input sequence
